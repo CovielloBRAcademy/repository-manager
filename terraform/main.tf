@@ -7,8 +7,24 @@ resource "github_repository" "github_repository" {
   has_issues      = false
   has_projects    = false
   has_wiki        = false
+  auto_init       = true
 }
 
+
+resource "github_repository_file" "settings" {
+  depends_on = [github_repository.github_repository]
+  repository = var.github_repository_name
+  branch     = "main"
+  file       = ".github/settings.yml"
+  content = templatefile("${path.module}/settings.tftpl", {
+    github_repository_name        = var.github_repository_name
+    github_repository_description = var.github_repository_description
+  })
+  commit_message      = "Creating Settings File"
+  commit_author       = "bcovieswex"
+  commit_email        = "120387348+bcovieswex@users.noreply.github.com"
+  overwrite_on_create = true
+}
 
 resource "github_repository_environment" "repo_environment" {
   depends_on  = [github_repository.github_repository]
