@@ -29,5 +29,6 @@ GITHUB_ONWER="${2}"
 
 terraform init
 
-# terraform apply -auto-approve -var="github_token=${GITHUB_TOKEN}" -var="github_repository_name=${GITHUB_REPOSITORY}" -var="github_owner=${GITHUB_ONWER}"
+terraform apply -auto-approve -var="github_token=${GITHUB_TOKEN}" -var="github_repository_name=${GITHUB_REPOSITORY}" -var="github_owner=${GITHUB_ONWER}"
+sleep 60
 terraform destroy -auto-approve -var="github_token=${GITHUB_TOKEN}" -var="github_repository_name=${GITHUB_REPOSITORY}" -var="github_owner=${GITHUB_ONWER}"
